@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taekwondo Scoreboard</title>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-database-compat.js"></script>
+
+    <style>
+        :root {
+            --blue-bg: #0511fc;
+            --btn-color: #000;
+            --btn-bg: #fff;
+            --btn-radius: 8px;
+            --btn-padding: 8px 16px;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: Arial, sans-serif;
+            background-color: var(--blue-bg);
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100vw;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .top-right {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+        }
+
+        .top-right button {
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 6px;
+            background-color: white;
+            color: black;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .header {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .main-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        .side-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 150px;
+        }
+
+        .center-panel {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            width: 340px;
+        }
+
+        .center-panel button,
+        .side-controls button {
+            background-color: var(--btn-bg);
+            color: var(--btn-color);
+            border: none;
+            padding: var(--btn-padding);
+            border-radius: var(--btn-radius);
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .center-panel button:hover,
+        .side-controls button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .green-btn {
+            background-color: green;
+            color: white;
+        }
+
+        .red-btn {
+            background-color: red;
+            color: white;
+        }
+
+        .timer-display {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .timer-btn {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 10px 0;
+        }
+
+        input[type="number"] {
+            width: 50px;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            margin: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Top Right Button -->
+        <div class="top-right">
+            <button>Create Room</button>
+        </div>
+
+        <!-- Header -->
+        <div class="header">Chung Hong</div>
+
+        <!-- Main Area -->
+        <div class="main-area">
+            <!-- Left Gam-Jeom Controls -->
+            <div class="side-controls">
+                <button>+ Gam-Jeom</button>
+                <div>Gam-Jeom: 0</div>
+                <button>- Gam-Jeom</button>
+            </div>
+
+            <!-- Center Panel -->
+            <div class="center-panel">
+                <div class="timer-display">Timer: 00:00</div>
+                <button class="timer-btn">▶</button>
+
+                <div>
+                    <input type="number" placeholder="0" min="0" max="99" /> Minutes
+                    <input type="number" placeholder="0" min="0" max="59" /> Seconds
+                    <button>Set Timer</button>
+                </div>
+
+                <p>Round 1 of 3</p>
+
+                <button>Reset Timer</button>
+                <button>Add Points</button>
+                <button>Remove Points</button>
+                <button>Declare Round Winner</button>
+                <button class="green-btn">New Match</button>
+                <button class="red-btn">Reset Scores</button>
+            </div>
+
+            <!-- Right Gam-Jeom Controls -->
+            <div class="side-controls">
+                <button>+ Gam-Jeom</button>
+                <div>Gam-Jeom: 0</div>
+                <button>- Gam-Jeom</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDKGg_bhwCAR6OpywuTiX-HpTXUHboNVhc",
+      authDomain: "tkd-kc.firebaseapp.com",
+      databaseURL: "https://tkd-kc-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "tkd-kc",
+      storageBucket: "tkd-kc.appspot.com",
+      messagingSenderId: "460367866714",
+      appId: "1:460367866714:web:9e68cf9afabe9ccbf7a163"
+    };
+  
+    // ✅ Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  
+    // ✅ This is the fix: Declare and assign db
+    const db = firebase.database();
+  </script>
+  
+<script src="scoreboard.js"></script>
+
+</html>
